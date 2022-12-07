@@ -14,3 +14,7 @@ Easy generation of nft collections through the use of AI. Describe the topic of 
 ```
   npm run dev
 ```
+
+## env vars
+
+A .env-sample file has been provided to fill with the required variables. Get an API key in openai.
