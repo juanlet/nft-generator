@@ -6,7 +6,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const generateNFTs = async (req,res)=>{
-    const  { prompt, size } = req.body;
+    const  { collectionDescription, imageSize, numberOfImages } = req.body;
     const sizes = {
         small: '256x256',
         medium: '512x512',
@@ -14,18 +14,17 @@ const generateNFTs = async (req,res)=>{
     }
 
     try  {
-       
        const response = await openai.createImage({
-        prompt,
-        n: 1,
-        size: sizes[size.toLowerCase()]
+        prompt: collectionDescription,
+        n: parseInt(numberOfImages),
+        size: sizes[imageSize.toLowerCase()]
        });
 
-       const imageUrl = response.data.data[0].url;
+       const generatedNFTS = response.data.data;
 
        res.status(200).json({
         success: true,
-        data: imageUrl
+        data: generatedNFTS
        });
     } catch(error){
         if (error.response) {
