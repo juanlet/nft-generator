@@ -13,11 +13,16 @@ function onSubmit(e) {
   
     generateNFTCollection(collectionDescription, imageSize, numberOfImages);
   }
+
+  function setErrorMsg(msg) {
+    const errorMsg = document.querySelector('.err-msg');
+    errorMsg.textContent = msg;
+  }
   
   async function generateNFTCollection(collectionDescription, imageSize, numberOfImages) {
     try {
       showSpinner();
-  
+      setErrorMsg('');
       const response = await fetch('/nft/generate', {
         method: 'POST',
         headers: {
@@ -29,15 +34,13 @@ function onSubmit(e) {
           numberOfImages
         }),
       });
-  
-      if (!response.ok) {
-        removeSpinner();
-        throw new Error('That image could not be generated');
-      }
-  
       const data = await response.json();
       console.log(data);
-      
+
+      if (!response.ok) {
+        removeSpinner();
+        throw new Error(data.error);
+      }      
       const generatedImages = data.data;
       const nftShowcase = document.querySelector('.nft-showcase');
       nftShowcase.innerHTML = '';
@@ -53,9 +56,11 @@ function onSubmit(e) {
       removeSpinner();
 
     } catch (error) {
-      
+        setErrorMsg(error);
     }
   }
+
+
   
   function showSpinner() {
     document.querySelector('.spinner').classList.add('show');

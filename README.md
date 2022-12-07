@@ -15,6 +15,16 @@ Easy generation of nft collections through the use of AI. Describe the topic of 
   npm run dev
 ```
 
+
+## access NFT generator
+
+In your browser, access 
+
+```
+http://localhost:5000
+```
+(unless you defined a different port in your .env)
+
 ## env vars
 
 A .env-sample file has been provided to fill with the required variables. Get an API key in openai.

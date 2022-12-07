@@ -32,11 +32,11 @@ const generateNFTs = async (req,res)=>{
             console.log(error.response.data);
         } else {
             console.log(error.message);
-        }
+        } 
 
-        res.status(400).json({
+        res.status(400).send({
             success: false,
-            error: 'The image could not be generated'
+            error: error.response?.data?.error?.message || 'There was an error generating the nfts.'
         });
     }
  }
