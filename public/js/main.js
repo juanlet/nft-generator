@@ -20,6 +20,8 @@ function onSubmit(e) {
   }
   
   async function generateNFTCollection(collectionDescription, imageSize, numberOfImages) {
+    const nftShowcase = document.querySelector('.nft-showcase');
+
     try {
       showSpinner();
       setErrorMsg('');
@@ -42,7 +44,6 @@ function onSubmit(e) {
         throw new Error(data.error);
       }      
       const generatedImages = data.data;
-      const nftShowcase = document.querySelector('.nft-showcase');
       nftShowcase.innerHTML = '';
       generatedImages.forEach(image => {
         const imgContainer =  document.createElement('div');
@@ -56,6 +57,7 @@ function onSubmit(e) {
       removeSpinner();
 
     } catch (error) {
+        nftShowcase.innerHTML = '';
         setErrorMsg(error);
     }
   }
